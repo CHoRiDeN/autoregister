@@ -1,0 +1,8 @@
+flask<2
+flask-cors
+Flask-RESTful
+pymongo
+requests
+beautifulsoup4
+2captcha-python
+flask_redis

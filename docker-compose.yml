@@ -1,0 +1,23 @@
+version: "3"
+services:
+
+  api:
+    container_name: autoreg-api
+    volumes:
+      - "./api:/deploy/backend"
+    build:
+      context: api/deploy
+      dockerfile: Dockerfile.yml
+    ports:
+      - "5000:5000"
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+  tokenator:
+    build: ./tokenator/.
+    ports:
+      - "5006:5006"
+    deploy:
+      restart_policy:
+        condition: on-failure
