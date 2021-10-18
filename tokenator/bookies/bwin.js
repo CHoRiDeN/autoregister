@@ -59,21 +59,23 @@ export default function registerBwin(bodyData, callback) {
                 let errors = (await page.$('.theme-error-i')) || undefined;
                 if (errors) {
                     await page.waitForSelector('.header-ctrl-txt');
-                    let headerElem = await page.$('.cms-container');
+                    let headerElem = await page.$('.header-ctrl-txt');
                     let headerValue = await page.evaluate(el => el.textContent, headerElem);
                     console.log(headerValue);
                     if(headerValue == 'Verifica tu identidad'){
                         resolve('Pending verification');
+                        await browser.close();
                         return;
                     }
                     await page.waitForSelector('.cms-container');
                     let element = await page.$('.cms-container');
                     let value = await page.evaluate(el => el.textContent, element);
                     reject(value);
-                    //await browser.close();
+                    await browser.close();
                 }else{
                     console.log(page.url());
                     resolve('Registered');
+                    await browser.close();
                     return;
                 }
 

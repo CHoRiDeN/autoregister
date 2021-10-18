@@ -31,9 +31,9 @@ const server = createServer((req, res) => {
             let bodyData = JSON.parse(body);
             console.log(bodyData.documentNumber);
 
-            registerBwin(bodyData).then(res =>{
+            registerBwin(bodyData).then(response =>{
                 res.writeHead(200);
-                res.end('Done');
+                res.end(response);
             }).catch(ex =>{
                 res.writeHead(500);
                 res.end('Error:'+ ex.toString());
