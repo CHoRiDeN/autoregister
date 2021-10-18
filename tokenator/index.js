@@ -1,5 +1,6 @@
 import {createServer} from 'http';
-import register from './bookies/bet365.js'
+import registerB365 from './bookies/bet365.js'
+import registerBwin from './bookies/bwin.js'
 import puppeteer from 'puppeteer-extra';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 
@@ -12,9 +13,25 @@ const server = createServer((req, res) => {
             let bodyData = JSON.parse(body);
             console.log(bodyData.documentNumber);
 
+            registerB365(bodyData).then(response =>{
+                res.writeHead(200);
+                res.end(response);
+            }).catch(ex =>{
+                res.writeHead(500);
+                res.end('Error:'+ ex.toString());
+            })
 
+        });
+    }
 
-            register(bodyData).then(res =>{
+    if (req.url === '/bwin') {
+        var body = "";
+        req.on("data", function (chunk) {
+            body += chunk;
+            let bodyData = JSON.parse(body);
+            console.log(bodyData.documentNumber);
+
+            registerBwin(bodyData).then(res =>{
                 res.writeHead(200);
                 res.end('Done');
             }).catch(ex =>{

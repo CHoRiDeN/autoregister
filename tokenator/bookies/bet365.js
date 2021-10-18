@@ -1,7 +1,7 @@
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import puppeteer from "puppeteer-extra";
 
-export default function register(bodyData, callback) {
+export default function registerB365(bodyData, callback) {
     return new Promise((resolve, reject) => {
         const stealth = StealthPlugin();
         stealth.enabledEvasions.delete('chrome.runtime');
@@ -34,6 +34,7 @@ export default function register(bodyData, callback) {
                 await page.type('#CurrentBuildingNumberSearch', bodyData.address);
                 await page.type('#CurrentStreetNameSearch', bodyData.address);
                 await page.type('#CurrentPostcodeSearch', bodyData.postalCode);
+
 
                 await page.click('#CurrentFindAddress');
 
